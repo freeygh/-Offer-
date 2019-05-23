@@ -1,1 +1,81 @@
 
+/*方法一：哈希表法
+class Solution {
+public:
+    // Parameters:
+    //        numbers:     an array of integers
+    //        length:      the length of array numbers
+    //        duplication: (Output) the duplicated number in the array number
+    // Return value:       true if the input is valid, and there are some duplications in the array number
+    //                     otherwise false
+    bool duplicate(int numbers[], int length, int* duplication) {
+         if (numbers == nullptr || length <= 1)return false;
+         int *hashTable = new int[length]();
+         for (int i = 0; i != length; i++)
+         {
+            if (hashTable[numbers[i]]) 
+            {
+                *duplication = numbers[i];
+                return true;
+            }
+            else 
+            {
+                hashTable[numbers[i]] = 1;
+            }
+         }
+         return false;
+    }
+};
+
+/*方法二 排序法
+class Solution {
+public:
+    // Parameters:
+    //        numbers:     an array of integers
+    //        length:      the length of array numbers
+    //        duplication: (Output) the duplicated number in the array number
+    // Return value:       true if the input is valid, and there are some duplications in the array number
+    //                     otherwise false
+    bool duplicate(int numbers[], int length, int* duplication) {
+        if(length<=1)
+            return false;
+        vector<int> temp(numbers,numbers+length);
+        sort(temp.begin(),temp.end());
+        for(int i=0; i<length; i++)
+        {
+            if(temp[i+1]==temp[i])
+            {
+                *duplication=temp[i];
+                return true;
+            }
+        }
+        return false;
+    }
+};
+//方法三 哈希表法
+class Solution {
+public:
+    // Parameters:
+    //        numbers:     an array of integers
+    //        length:      the length of array numbers
+    //        duplication: (Output) the duplicated number in the array number
+    // Return value:       true if the input is valid, and there are some duplications in the array number
+    //                     otherwise false
+    bool duplicate(int numbers[], int length, int* duplication) {
+        if(length<=1)
+            return false;
+        //int hashTable[]=(length,0);
+        int *hashTable=new int[length]();
+        for(int i=0; i<length; i++)
+        {
+            if(hashTable[numbers[i]]==0)  //如果不在哈希表中，则填入哈希表
+                hashTable[numbers[i]]++;
+            else
+            {
+                *duplication=numbers[i];
+                return true;
+            }
+        }
+        return false;
+    }
+};
